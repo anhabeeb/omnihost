@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title>Harborlight Guesthouse</title>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#0f3557" />
+      <stop offset="100%" stop-color="#d26749" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)" />
+  <path d="M24 82h80v8H24zm10-12 30-34 30 34h-12V54H46v16z" fill="#f6efe5" />
+  <circle cx="86" cy="36" r="10" fill="#ffd27f" />
+</svg>
+

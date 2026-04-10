@@ -1,0 +1,48 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "omnihost",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-04-10",
+  "compatibility_flags": ["nodejs_compat_v2"],
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "vars": {
+    "APP_NAME": "OmniHost",
+    "APP_TAGLINE": "Hospitality operations in one live control center.",
+    "APP_CURRENCY": "USD",
+    "APP_BASE_URL": "http://localhost:5173",
+    "EMAIL_PROVIDER": "mock",
+    "DEFAULT_FROM_EMAIL": "ops@omnihost.app",
+    "DEFAULT_REPLY_TO_EMAIL": "hello@omnihost.app",
+    "QUOTE_PREFIX": "QTN",
+    "INVOICE_PREFIX": "INV"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "omnihost-db",
+      "database_id": "replace-with-your-d1-database-id",
+      "preview_database_id": "replace-with-your-d1-preview-id",
+      "migrations_dir": "./migrations"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "BOOKING_SYNC",
+        "class_name": "BookingSyncHub"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["BookingSyncHub"]
+    }
+  ]
+}

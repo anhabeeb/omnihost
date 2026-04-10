@@ -1,0 +1,30 @@
+:root {
+  color: #162534;
+  background:
+    radial-gradient(circle at top left, rgba(242, 166, 77, 0.22), transparent 28%),
+    radial-gradient(circle at top right, rgba(45, 106, 142, 0.2), transparent 32%),
+    linear-gradient(180deg, #fbf4eb 0%, #f2ebe0 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(242, 166, 77, 0.22), transparent 28%),
+    radial-gradient(circle at top right, rgba(45, 106, 142, 0.2), transparent 32%),
+    linear-gradient(180deg, #fbf4eb 0%, #f2ebe0 100%);
+}
+
+a {
+  color: inherit;
+}
+
