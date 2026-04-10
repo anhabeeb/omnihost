@@ -3,6 +3,7 @@ import { ZodError } from "zod";
 
 import type { AuthSession, InitializeSystemInput, LoginInput, SendEmailInput } from "../shared/domain";
 import { BookingSyncHub } from "./durable/BookingSyncHub";
+import { ensureSchema } from "./data/schema";
 import {
   createEmailLog,
   findAvailability,
@@ -119,6 +120,7 @@ async function broadcastMutation(
 }
 
 app.use("/api/*", async (context, next) => {
+  await ensureSchema(context.env);
   const pathname = new URL(context.req.url).pathname;
 
   if (publicApiRoutes.has(pathname)) {

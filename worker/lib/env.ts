@@ -21,6 +21,7 @@ export interface D1PreparedStatementLike {
 export interface D1DatabaseLike {
   prepare(query: string): D1PreparedStatementLike;
   batch<T = unknown>(statements: D1PreparedStatementLike[]): Promise<Array<D1QueryResult<T>>>;
+  exec(query: string): Promise<unknown>;
 }
 
 export interface DurableObjectStubLike {
@@ -51,4 +52,3 @@ export interface AuthorizedSession {
   token: string;
   user: AuthUser;
 }
-
