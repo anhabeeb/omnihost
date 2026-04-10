@@ -33,8 +33,8 @@ export const initializeSystemSchema = z.object({
   phone: z.string().min(5),
   email: z.string().email(),
   currency: z.string().min(3).max(3),
-  quotePrefix: z.string().min(2).max(6),
-  invoicePrefix: z.string().min(2).max(6),
+  quotePrefix: z.string().min(2).max(16),
+  invoicePrefix: z.string().min(2).max(16),
   adminName: z.string().min(2),
   username: z.string().min(3),
   password: z.string().min(8)
@@ -110,4 +110,3 @@ export const sendEmailSchema = z.object({
   message: z.string().max(4000).default(""),
   documentId: z.string().min(1).optional()
 });
-

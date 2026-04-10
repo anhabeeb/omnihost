@@ -23,8 +23,28 @@ async function request<T>(path: string, init?: RequestInit, token?: string): Pro
   });
 
   if (!response.ok) {
-    const body = (await response.json().catch(() => null)) as { error?: string } | null;
-    throw new Error(body?.error ?? `Request failed: ${response.status}`);
+    const body = (await response.json().catch(() => null)) as
+      | {
+          error?: string;
+          issues?: {
+            fieldErrors?: Record<string, string[] | undefined>;
+            formErrors?: string[];
+          };
+        }
+      | null;
+
+    const fieldErrors = body?.issues?.fieldErrors
+      ? Object.entries(body.issues.fieldErrors)
+          .flatMap(([field, messages]) =>
+            (messages ?? []).map((message) => `${field}: ${message}`)
+          )
+      : [];
+    const formErrors = body?.issues?.formErrors ?? [];
+    const details = [...fieldErrors, ...formErrors].filter(Boolean).join(" | ");
+
+    throw new Error(
+      details ? `${body?.error ?? `Request failed: ${response.status}`} ${details}` : body?.error ?? `Request failed: ${response.status}`
+    );
   }
 
   if (response.status === 204) {
