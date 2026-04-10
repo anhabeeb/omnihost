@@ -6,6 +6,14 @@ import type { Env } from "../lib/env";
 let schemaReady = false;
 let schemaReadyPromise: Promise<void> | null = null;
 
+function splitSqlStatements(sql: string): string[] {
+  return sql
+    .replace(/^\uFEFF/, "")
+    .split(/;\s*(?:\r?\n)+/g)
+    .map((statement) => statement.trim())
+    .filter(Boolean);
+}
+
 export async function ensureSchema(env: Env) {
   if (!env.DB || typeof env.DB.prepare !== "function") {
     throw new AppError(
@@ -30,7 +38,8 @@ export async function ensureSchema(env: Env) {
       ).first<{ name: string }>();
 
       if (!table) {
-        await env.DB.exec(initialSchemaSql);
+        const statements = splitSqlStatements(initialSchemaSql);
+        await env.DB.batch(statements.map((statement) => env.DB.prepare(statement)));
       }
 
       schemaReady = true;
